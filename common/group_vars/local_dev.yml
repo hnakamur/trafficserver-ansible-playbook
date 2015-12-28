@@ -3,3 +3,5 @@ timezone: Asia/Tokyo
 ntp_servers:
   - ntp.jst.mfeed.ad.jp
   - ntp.nict.jp
+
+mysql_root_password: "{{ lookup('env', 'MYSQL_ROOT_PASSWORD') }}"

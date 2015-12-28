@@ -1,0 +1,8 @@
+---
+- name: Install Apache httpd server
+  yum: name=httpd state=latest
+  tags: ["apache"]
+
+- name: Start Apache httpd service
+  service: name=httpd state=started enabled=True
+  tags: ["apache"]

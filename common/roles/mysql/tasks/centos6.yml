@@ -1,0 +1,43 @@
+---
+- name: Install mysql yum repository
+  yum: name=http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm state=installed
+  tags: ["mysql"]
+
+- name: Install mysql community server and python mysqldb module
+  yum: name={{ item }} state=present
+  with_items:
+    - mysql-community-server
+    - MySQL-python
+  tags: ["mysql"]
+
+- name: Start and enable mysql service
+  service: name=mysqld state=started enabled=True
+  tags: ["mysql"]
+
+- name: Create /root/.my.cnf with temporary password from mysql log
+  shell: awk '/temporary password/{password=$NF} END{printf("[client]\nuser=root\npassword=%s\nconnect-expired-password\n", password)}' /var/log/mysqld.log > /root/.my.cnf
+  args:
+    creates: /root/.my.cnf
+  tags: ["mysql"]
+
+- name: Get mysql root current password
+  command: awk -F= '$1=="password"{print $2}' /root/.my.cnf
+  register: mysql_root_current_password
+  changed_when: False
+  tags: ["mysql"]
+
+- name: Escape mysql root password
+  set_fact: mysql_root_escaped_password={{ mysql_root_password | regex_replace("'", "''") }}
+  changed_when: False
+  when: mysql_root_current_password.stdout != mysql_root_password
+  tags: ["mysql"]
+
+- name: Set mysql root password
+  shell: mysql -e "SET PASSWORD = PASSWORD('{{ mysql_root_escaped_password }}')"
+  when: mysql_root_current_password.stdout != mysql_root_password
+  tags: ["mysql"]
+
+- name: Write /root/.my.cnf
+  template: src=root.my.cnf.j2 dest=/root/.my.cnf
+  when: mysql_root_current_password.stdout != mysql_root_password
+  tags: ["mysql"]

@@ -12,3 +12,8 @@
     - ../common/roles/timezone
     - ../common/roles/ntp
     - ../common/roles/sysstat
+    - trafficserver
+    - ../common/roles/mysql
+    - apache
+    - ../common/roles/remi
+    - ../common/roles/php70
