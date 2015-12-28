@@ -8,3 +8,8 @@
     - php70-php-mbstring
     - php70-php-mysqlnd
     - php70-php-xml
+  tags: ["php70"]
+
+- name: Write /etc/opt/remi/php70/php.ini
+  template: src=php.ini.j2 dest=/etc/opt/remi/php70/php.ini
+  tags: ["php70"]
