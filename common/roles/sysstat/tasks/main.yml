@@ -1,0 +1,8 @@
+---
+- name: Install sysstat
+  yum: name=sysstat state=installed
+  tags: ["sysstat"]
+
+- name: Run sysstat every minute
+  copy: src=sysstat.cron dest=/etc/cron.d/sysstat
+  tags: ["sysstat"]

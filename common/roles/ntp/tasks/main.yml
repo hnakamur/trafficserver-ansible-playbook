@@ -1,0 +1,13 @@
+---
+- name: Install ntp
+  yum: name=ntp state=latest
+  tags: ["ntp"]
+
+- name: Update ntp.conf
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  notify: restart ntpd
+  tags: ["ntp"]
+
+- name: Start ntp service
+  service: name=ntpd state=started enabled=true
+  tags: ["ntp"]

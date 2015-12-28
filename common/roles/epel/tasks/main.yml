@@ -1,0 +1,4 @@
+---
+- name: Install epel
+  yum: name=epel-release state=latest
+  tags: ["epel"]

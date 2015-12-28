@@ -1,0 +1,14 @@
+---
+- hosts: "{{ group }}" 
+  vars_files: 
+    - ../common/group_vars/{{ group }}.yml
+  vars:
+    - ansible_python_interpreter: /usr/bin/python
+  remote_user: root
+  roles:
+    - ../common/roles/selinux
+    - ../common/roles/yum_upgrade
+    - ../common/roles/epel
+    - ../common/roles/timezone
+    - ../common/roles/ntp
+    - ../common/roles/sysstat

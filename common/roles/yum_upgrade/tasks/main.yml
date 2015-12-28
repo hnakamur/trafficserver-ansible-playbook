@@ -1,0 +1,4 @@
+---
+- name: Yum upgrade
+  yum: name=* update_cache=yes state=latest
+  tags: ["yum_upgrade"]

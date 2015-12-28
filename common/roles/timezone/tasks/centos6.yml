@@ -1,0 +1,16 @@
+---
+- name: Check timezone is already set to /etc/localtime
+  command: cmp /usr/share/zoneinfo/{{ timezone }} /etc/localtime
+  register: timezone_cmp
+  changed_when: False
+  failed_when: timezone_cmp.rc not in [0, 1]
+  tags: ["timezone"]
+
+- name: Copy timezone file to /etc/localtime
+  command: cp /usr/share/zoneinfo/{{ timezone }} /etc/localtime
+  when: timezone_cmp.rc == 1
+  tags: ["timezone"]
+
+- name: Update timezone in /etc/sysconfig/clock
+  replace: dest=/etc/sysconfig/clock regexp='^ZONE="[^"]*"$' replace='ZONE="{{ timezone }}"'
+  tags: ["timezone"]
