@@ -3,6 +3,11 @@
   yum: name=httpd state=latest
   tags: ["apache"]
 
+- name: Write Apache config httpd.conf
+  template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+  notify: restart apache
+  tags: ["apache"]
+
 - name: Start Apache httpd service
   service: name=httpd state=started enabled=True
   tags: ["apache"]

@@ -5,3 +5,5 @@ ntp_servers:
   - ntp.nict.jp
 
 mysql_root_password: "{{ lookup('env', 'MYSQL_ROOT_PASSWORD') }}"
+
+apache_port: 8081
