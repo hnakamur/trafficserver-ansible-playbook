@@ -1,0 +1,57 @@
+---
+- name: Download Wordpress CLI
+  get_url: url=https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar dest=/usr/local/bin/wp mode=0755
+  tags: ["wordpress"]
+
+  # - name: Change Wordpress CLI shebang to use php70
+  #   replace: dest=/usr/local/bin/wp regexp="^#!/usr/bin/env php$" replace="#!/usr/bin/php70"
+  #   tags: ["wordpress"]
+
+- name: Check Wordpress is installed
+  stat: path={{ wordpress_install_dir }}/wp-login.php
+  register: wordpress_installed
+  tags: ["wordpress"]
+
+- name: Download Wordpress
+  command: php70 /usr/local/bin/wp core download --path={{ wordpress_install_dir }} --locale=ja
+  when: not wordpress_installed.stat.exists
+  tags: ["wordpress"]
+
+- name: Create Wordpress database
+  mysql_db: name={{ wordpress_db_name }} state=present
+  tags: ["wordpress"]
+
+
+# TASK: [wordpress | Create Wordpress database user] ****************************
+# failed: [local_dev] => {"failed": true}
+# msg: (1054, "Unknown column 'password' in 'field list'")
+# See http://stackoverflow.com/questions/30692812/mysql-user-db-does-not-have-password-columns-installing-mysql-on-osx
+#- name: Create Wordpress database user
+#  mysql_user: name={{ wordpress_db_user }} password={{ wordpress_db_password }} priv={{ wordpress_db_name }}.*:ALL state=present
+#  when: not wordpress_installed.stat.exists
+#  tags: ["wordpress"]
+
+- name: Escape Wordpress database password
+  set_fact: wordpress_db_escaped_password={{ wordpress_db_password | regex_replace("'", "''") }}
+  changed_when: False
+  when: not wordpress_installed.stat.exists
+  tags: ["mysql"]
+
+- name: Set Wordpress database password
+  shell: mysql -e "GRANT ALL ON {{ wordpress_db_name }}.* TO {{ wordpress_db_user }} IDENTIFIED BY '{{ wordpress_db_escaped_password }}'"
+  when: not wordpress_installed.stat.exists
+  tags: ["mysql"]
+
+- name: Configure Wordpress database
+  command: php70 /usr/local/bin/wp core config --path={{ wordpress_install_dir }} --dbname='{{ wordpress_db_name }}' --dbuser='{{ wordpress_db_user }}' --dbpass='{{ wordpress_db_password }}' --dbhost=localhost --locale=ja
+  when: not wordpress_installed.stat.exists
+  tags: ["wordpress"]
+
+- name: Configure Wordpress admin account
+  command: php70 /usr/local/bin/wp core install --path={{ wordpress_install_dir }} --url={{ wordpress_site_url }} --title='{{ wordpress_site_title }}' --admin_name='{{ wordpress_admin_name }}' --admin_email='{{ wordpress_admin_email }}' --admin_password='{{ wordpress_admin_password }}'
+  when: not wordpress_installed.stat.exists
+  tags: ["wordpress"]
+
+- name: Update Wordpress plugins
+  command: php70 /usr/local/bin/wp plugin update --path={{ wordpress_install_dir }} --all
+  tags: ["wordpress"]

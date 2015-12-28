@@ -1,0 +1,5 @@
+---
+- name: Install wordpress-importer plugin
+  command: /usr/local/bin/wp plugin install wordpress-importer --path={{ wordpress_install_dir }} --activate
+  tags: ["wordpress_test_data"]
+

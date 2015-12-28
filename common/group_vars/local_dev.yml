@@ -6,4 +6,14 @@ ntp_servers:
 
 mysql_root_password: "{{ lookup('env', 'MYSQL_ROOT_PASSWORD') }}"
 
-apache_port: 8081
+apache_port: 80
+
+wordpress_db_name: wordpress
+wordpress_db_user: wordpress
+wordpress_db_password: "{{ lookup('env', 'WORDPRESS_DB_PASSWORD') }}"
+wordpress_install_dir: /var/www/html
+wordpress_admin_name: admin
+wordpress_admin_email: admin@example.com
+wordpress_admin_password:  "{{ lookup('env', 'WORDPRESS_ADMIN_PASSWORD') }}"
+wordpress_site_title: "Wordpress test site"
+wordpress_site_url: "http://192.168.33.131"
