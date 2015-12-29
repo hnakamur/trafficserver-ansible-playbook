@@ -8,6 +8,7 @@
     - php70-php-mbstring
     - php70-php-mysqlnd
     - php70-php-xml
+  notify: restart apache
   tags: ["php70"]
 
 - name: Write /etc/opt/remi/php70/php.ini
