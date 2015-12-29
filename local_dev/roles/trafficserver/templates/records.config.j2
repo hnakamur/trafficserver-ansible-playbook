@@ -142,12 +142,18 @@ CONFIG proxy.config.cache.min_average_object_size INT 8000
 CONFIG proxy.config.log.logging_enabled INT 3
 CONFIG proxy.config.log.max_space_mb_for_logs INT 25000
 CONFIG proxy.config.log.max_space_mb_headroom INT 1000
-CONFIG proxy.config.log.squid_log_enabled INT 1
+CONFIG proxy.config.log.squid_log_enabled INT 0
 CONFIG proxy.config.log.squid_log_is_ascii INT 0
 CONFIG proxy.config.log.rolling_enabled INT 1
 CONFIG proxy.config.log.rolling_interval_sec INT 86400
 CONFIG proxy.config.log.rolling_size_mb INT 10
 CONFIG proxy.config.log.auto_delete_rolled_files INT 1
+
+# Use the Netscape Extended-2 forma
+#   http://trafficserver.readthedocs.org/en/5.3.x/admin/working-log-files.en.html
+CONFIG proxy.config.log.extended2_log_enabled INT 1
+CONFIG proxy.config.log.extended2_log_is_ascii INT 1
+CONFIG proxy.config.log.extended2_log_name STRING proxy.log
 
 ##############################################################################
 # These settings control remapping, and if the proxy allows (open) forward proxy or not. Docs:
