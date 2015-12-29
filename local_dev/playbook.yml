@@ -18,3 +18,4 @@
     - ../common/roles/remi
     - ../common/roles/php70
     - wordpress
+    - wordpress_test_data

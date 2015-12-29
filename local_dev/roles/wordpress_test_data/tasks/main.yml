@@ -1,5 +1,20 @@
 ---
-- name: Install wordpress-importer plugin
-  command: /usr/local/bin/wp plugin install wordpress-importer --path={{ wordpress_install_dir }} --activate
+- name: Check wordpress test data is already installed
+  stat: path=/root/wordpress-theme-test-date-ja.xml
+  register: wordpres_test_data_xml_st
   tags: ["wordpress_test_data"]
 
+- name: Download xml for wordpress test data
+  get_url: url=https://raw.github.com/jawordpressorg/theme-test-data-ja/master/wordpress-theme-test-date-ja.xml dest=/root/wordpress-theme-test-date-ja.xml
+  when: not wordpres_test_data_xml_st.stat.exists
+  tags: ["wordpress_test_data"]
+
+- name: Install wordpress-importer plugin
+  command: php70 /usr/local/bin/wp plugin install wordpress-importer --path={{ wordpress_install_dir }} --activate
+  when: not wordpres_test_data_xml_st.stat.exists
+  tags: ["wordpress_test_data"]
+
+- name: Install wordpress test data
+  command: php70 /usr/local/bin/wp import --path={{ wordpress_install_dir }} --authors=create /root/wordpress-theme-test-date-ja.xml
+  when: not wordpres_test_data_xml_st.stat.exists
+  tags: ["wordpress_test_data"]
