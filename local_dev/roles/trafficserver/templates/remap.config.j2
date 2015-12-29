@@ -190,3 +190,6 @@
 #     will be the entire input string)
 #  3) The number of substitutions in the expansion string is limited to 10.
 #
+{% for config in trafficserver_remap_configs %}
+{{ config }}
+{% endfor %}

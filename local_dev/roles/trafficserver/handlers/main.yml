@@ -1,0 +1,4 @@
+---
+- name: restart trafficserver
+  service: name=trafficserver state=restarted
+  tags: ["trafficserver"]

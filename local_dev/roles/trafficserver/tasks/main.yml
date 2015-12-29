@@ -2,3 +2,17 @@
 - name: Install Apache Traffic Server
   yum: name=trafficserver state=latest
   tags: ["trafficserver"]
+
+- name: Write /etc/trafficserver/records.config
+  template: src=records.config.j2 dest=/etc/trafficserver/records.config
+  notify: restart trafficserver
+  tags: ["trafficserver"]
+
+- name: Write /etc/trafficserver/remap.config
+  template: src=remap.config.j2 dest=/etc/trafficserver/remap.config
+  notify: restart trafficserver
+  tags: ["trafficserver"]
+
+- name: Start and enable trafficserver service
+  service: name=trafficserver state=started enabled=True
+  tags: ["trafficserver"]
