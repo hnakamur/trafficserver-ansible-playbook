@@ -3,15 +3,24 @@
   yum: name=trafficserver state=latest
   tags: ["trafficserver"]
 
-- name: Write /etc/trafficserver/records.config
-  template: src=records.config.j2 dest=/etc/trafficserver/records.config
+- name: Write trafficserver config files
+  template: src={{ item }} dest=/etc/trafficserver/{{ item | regex_replace('\.j2$', '') }}
   notify: restart trafficserver
+  with_items:
+    - records.config.j2
+    - remap.config.j2
+    - logs_xml.config.j2
   tags: ["trafficserver"]
 
-- name: Write /etc/trafficserver/remap.config
-  template: src=remap.config.j2 dest=/etc/trafficserver/remap.config
-  notify: restart trafficserver
-  tags: ["trafficserver"]
+#- name: Write /etc/trafficserver/records.config
+#  template: src=records.config.j2 dest=/etc/trafficserver/records.config
+#  notify: restart trafficserver
+#  tags: ["trafficserver"]
+#
+#- name: Write /etc/trafficserver/remap.config
+#  template: src=remap.config.j2 dest=/etc/trafficserver/remap.config
+#  notify: restart trafficserver
+#  tags: ["trafficserver"]
 
 - name: Start and enable trafficserver service
   service: name=trafficserver state=started enabled=True

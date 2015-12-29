@@ -387,3 +387,35 @@ simply create a <LogObject> that uses this format.
   <Name = "squid_seconds_only_timestamp"/>
   <Format = "%<cqts> %<ttms> %<chi> %<crc>/%<pssc> %<psql> %<cqhm> %<cquc> %<caun> %<phr>/%<pqsn> %<psct>"/>
 </LogFormat>
+
+
+<!------------------------------------------------------------------------
+
+LTSV Log Format
+---------------
+
+The following <LogFormat> is using LTSV (Labeled Tab Separated Values).
+It has the same fields as the extended2 format.
+
+-------------------------------------------------------------------------->
+
+<LogFormat>
+  <Name = "ltsv"/>
+  <Format = "host:%<chi>	user:%<caun>	time:%<cqtn>	req:%<cqtx>	s1:%<pssc>	c1:%<pscl>	s2:%<sssc>	c2:%<sscl>	b1:%<cqbl>	b2:%<pqbl>	h1:%<cqhl>	h2:%<pshl>	h3:%<pqhl>	h4:%<sshl>	xt:%<tts>	route:%<phr>	pfs:%<cfsc>	ss:%<pfsc>	crc:%<crc> ua:%<{User-Agent}cqh>	referer:%<{Referer}cqh>"/>
+  <Interval = "10"/>
+</LogFormat>
+
+<!------------------------------------------------------------------------
+
+LTSV Log Object
+---------------
+
+The following <LogObject> create a local log file with the LTSV format
+defined above.
+
+-------------------------------------------------------------------------->
+
+<LogObject>
+  <Format = "ltsv"/>
+  <Filename = "proxy.ltsv.log"/>
+</LogObject>

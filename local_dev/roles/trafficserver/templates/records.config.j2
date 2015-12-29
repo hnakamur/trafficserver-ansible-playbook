@@ -155,6 +155,10 @@ CONFIG proxy.config.log.extended2_log_enabled INT 1
 CONFIG proxy.config.log.extended2_log_is_ascii INT 1
 CONFIG proxy.config.log.extended2_log_name STRING proxy.log
 
+# Enable the custom logging
+#   http://trafficserver.readthedocs.org/en/5.3.x/admin/working-log-files.en.html#using-the-custom-format
+CONFIG proxy.config.log.custom_logs_enabled INT 1
+
 ##############################################################################
 # These settings control remapping, and if the proxy allows (open) forward proxy or not. Docs:
 #    https://docs.trafficserver.apache.org/records.config#url-remap-rules
