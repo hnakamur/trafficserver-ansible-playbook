@@ -11,13 +11,12 @@ apache_port: 8081
 trafficserver_port: 80
 trafficserver_retain_host_header: 1
 trafficserver_remap_configs:
-  #- map http://192.168.33.131/ http://localhost:{{ apache_port }}/
-  - map http://192.168.33.131/ http://naruh.com/
-  - reverse_map http://naruh.com/ http://192.168.33.131/
+  - map http://192.168.33.131/ http://localhost:{{ apache_port }}/
+  - reverse_map http://localhost:{{ apache_port }}/ http://192.168.33.131/
 
 trafficserver_cache_configs:
-  - dest_domain=naruh.com suffix=jpg ttl-in-cache=1m
-  - dest_domain=naruh.com revalidate=1m
+  - dest_domain=localhost suffix=jpg ttl-in-cache=1m
+  - dest_domain=localhost revalidate=1m
 
 # https://docs.trafficserver.apache.org/en/latest/admin-guide/files/storage.config.en.html
 # NOTE: Storage size must be at least 128MB
