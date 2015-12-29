@@ -51,3 +51,6 @@
 #
 #  Revalidate all http objects from www.example.com after 2 hours 
 #    dest_domain=www.example.com   scheme=http  revalidate=2h
+{% for config in trafficserver_cache_configs %}
+{{ config }}
+{% endfor %}

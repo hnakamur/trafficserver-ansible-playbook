@@ -7,9 +7,11 @@
   template: src={{ item }} dest=/etc/trafficserver/{{ item | regex_replace('\.j2$', '') }}
   notify: restart trafficserver
   with_items:
+    - cache.config.j2
     - records.config.j2
     - remap.config.j2
     - logs_xml.config.j2
+    - storage.config.j2
   tags: ["trafficserver"]
 
 #- name: Write /etc/trafficserver/records.config
