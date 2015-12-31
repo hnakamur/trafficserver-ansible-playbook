@@ -11,9 +11,10 @@ apache_port: 8081
 trafficserver_port: 80
 trafficserver_retain_host_header: 1
 trafficserver_remap_configs:
-  # NOTE: The mapping for http://192.168.33.131/_cacheinspector/ must be placed before the mapping for http://192.168.33.131/.
-  # NOTE: The trailing slashes for _cacheinspector and {cache} are needed for cache inspector to work properly.
+  - '# NOTE: The mapping for http://192.168.33.131/_cacheinspector/ must be placed before the mapping for http://192.168.33.131/.'
+  - '# NOTE: The trailing slashes for _cacheinspector and {cache} are needed for cache inspector to work properly.'
   - map http://192.168.33.131/_cacheinspector/ http://{cache}/ @action=allow @src_ip=192.168.33.1 @src_ip=127.0.0.1
+  - map http://192.168.33.131/_stat/ http://{stat}/ @action=allow @src_ip=192.168.33.1 @src_ip=127.0.0.1
   - map http://192.168.33.131/ http://localhost:{{ apache_port }}/
   - reverse_map http://localhost:{{ apache_port }}/ http://192.168.33.131/
 
