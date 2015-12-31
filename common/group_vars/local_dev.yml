@@ -18,7 +18,7 @@ trafficserver_remap_configs:
   - reverse_map http://localhost:{{ apache_port }}/ http://192.168.33.131/
 
 trafficserver_cache_configs:
-  - dest_domain=localhost suffix=jpg ttl-in-cache=1m
+  - dest_domain=localhost scheme=http ttl-in-cache=1m
   - dest_domain=localhost revalidate=1m
 
 # https://docs.trafficserver.apache.org/en/latest/admin-guide/files/storage.config.en.html
