@@ -11,10 +11,19 @@ apache_port: 8081
 trafficserver_port: 80
 trafficserver_retain_host_header: 1
 trafficserver_remap_configs:
-  - '# NOTE: The mapping for http://192.168.33.131/_cacheinspector/ must be placed before the mapping for http://192.168.33.131/.'
-  - '# NOTE: The trailing slashes for _cacheinspector and {cache} are needed for cache inspector to work properly.'
-  - map http://192.168.33.131/_cacheinspector/ http://{cache}/ @action=allow @src_ip=192.168.33.1 @src_ip=127.0.0.1
-  - map http://192.168.33.131/_stat/ http://{stat}/ @action=allow @src_ip=192.168.33.1 @src_ip=127.0.0.1
+  - .definefilter local_only @action=allow @src_ip=192.168.33.1 @src_ip=192.168.33.131 @src_ip=127.0.0.1
+  - .activatefilter local_only
+  - '# NOTE: These mapping must be placed before the mapping for http://192.168.33.131/.'
+  - '# NOTE: The trailing slashes for /_ats_stat/cache/ and {cache} are needed for the cache inspector to work properly.'
+  - map http://192.168.33.131/_ats_stat/cache-internal/ http://{cache-internal}/
+  - map http://192.168.33.131/_ats_stat/cache/ http://{cache}/
+  - map http://192.168.33.131/_ats_stat/hostdb/ http://{hostdb}/
+  - map http://192.168.33.131/_ats_stat/http/ http://{http}/
+  - map http://192.168.33.131/_ats_stat/net/ http://{net}/
+  - map http://192.168.33.131/_ats_stat/stat/ http://{stat}/
+  - map http://192.168.33.131/_ats_stat/test/ http://{test}/
+  - .deactivatefilter local_only
+  - ''
   - map http://192.168.33.131/ http://localhost:{{ apache_port }}/
   - reverse_map http://localhost:{{ apache_port }}/ http://192.168.33.131/
 
