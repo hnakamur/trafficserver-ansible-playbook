@@ -190,8 +190,8 @@ CONFIG proxy.config.icp.enabled INT 0
 # Debugging. Docs:
 #    https://docs.trafficserver.apache.org/records.config#diagnostic-logging-configuration
 ##############################################################################
-CONFIG proxy.config.diags.debug.enabled INT 0
-CONFIG proxy.config.diags.debug.tags STRING http.*|dns.*
+CONFIG proxy.config.diags.debug.enabled INT 1
+CONFIG proxy.config.diags.debug.tags STRING http.*|dns.*|cache_inspector.*
 # ToDo: Undocumented
 CONFIG proxy.config.dump_mem_info_frequency INT 0
 CONFIG proxy.config.http.slow.log.threshold INT 0
