@@ -1,3 +1,4 @@
 export MYSQL_ROOT_PASSWORD="_your_password_here_"
 export WORDPRESS_DB_PASSWORD="_your_password_here_"
 export WORDPRESS_ADMIN_PASSWORD="_your_password_here_"
+export STATS_OVER_HTTP_PATHINFO=_some_random_path_here_

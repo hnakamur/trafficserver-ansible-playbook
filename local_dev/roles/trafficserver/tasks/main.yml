@@ -8,6 +8,7 @@
   notify: restart trafficserver
   with_items:
     - cache.config.j2
+    - plugin.config.j2
     - records.config.j2
     - remap.config.j2
     - logs_xml.config.j2

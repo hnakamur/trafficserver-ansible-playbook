@@ -23,6 +23,8 @@ trafficserver_cache_configs:
 trafficserver_storage_configs:
   - /var/cache/trafficserver 128M
 
+trafficserver_stats_over_http_pathinfo: "{{ lookup('env', 'STATS_OVER_HTTP_PATHINFO') }}"
+
 wordpress_db_name: wordpress
 wordpress_db_user: wordpress
 wordpress_db_password: "{{ lookup('env', 'WORDPRESS_DB_PASSWORD') }}"
