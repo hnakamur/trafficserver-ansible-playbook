@@ -1,4 +1,8 @@
 ---
+- name: Add hnakamur/apache-traffic-server repository on copr
+  get_url: url={{ trafficserver_yum_repo_file_url }} dest=/etc/yum.repos.d/{{ trafficserver_yum_repo_file_name }}
+  tags: ["trafficserver"]
+
 - name: Install Apache Traffic Server
   yum: name=trafficserver state=latest
   tags: ["trafficserver"]
