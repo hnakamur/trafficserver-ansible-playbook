@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "boxcutter/centos67"
+  config.vm.box = "centos/7"
   config.vm.network "private_network", ip: "192.168.33.131"
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"

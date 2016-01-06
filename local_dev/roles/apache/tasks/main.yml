@@ -1,10 +1,17 @@
 ---
 - name: Install Apache httpd server
   yum: name=httpd state=latest
+  register: apache_install
+  tags: ["apache"]
+
+- name: Reload systemd config files
+  command: systemctl daemon-reload
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7" and apache_install.changed
   tags: ["apache"]
 
 - name: Write Apache config httpd.conf
-  template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+  template: src=httpd.conf.centos{{ ansible_distribution_major_version }}.j2 dest=/etc/httpd/conf/httpd.conf
+  register: apache_httpd_conf
   notify: restart apache
   tags: ["apache"]
 

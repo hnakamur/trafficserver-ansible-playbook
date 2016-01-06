@@ -1,6 +1,6 @@
 ---
 - name: Install mysql yum repository
-  yum: name=http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm state=installed
+  yum: name=http://dev.mysql.com/get/mysql57-community-release-el{{ ansible_distribution_major_version }}-7.noarch.rpm state=installed
   tags: ["mysql"]
 
 - name: Install mysql community server and python mysqldb module
