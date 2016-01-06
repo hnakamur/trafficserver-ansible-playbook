@@ -1,4 +1,8 @@
 ---
+- name: Disable selinux
+  selinux: state=disabled
+  tags: ["selinux"]
+
 - name: Install libselinux-python
   yum: name=libselinux-python state=latest
   tags: ["selinux"]
