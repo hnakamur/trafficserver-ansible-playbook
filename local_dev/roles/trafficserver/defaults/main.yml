@@ -1,4 +1,4 @@
 ---
-trafficserver_yum_repo_file_name: hnakamur-apache-traffic-server-epel-{{ ansible_distribution_major_version }}.repo
-trafficserver_yum_repo_file_url: https://copr.fedoraproject.org/coprs/hnakamur/apache-traffic-server/repo/epel-{{ ansible_distribution_major_version }}/{{ trafficserver_yum_repo_file_name }}
+trafficserver_yum_repo_file_name: hnakamur-apache-traffic-server-6-epel-{{ ansible_distribution_major_version }}.repo
+trafficserver_yum_repo_file_url: https://copr.fedoraproject.org/coprs/hnakamur/apache-traffic-server-6/repo/epel-{{ ansible_distribution_major_version }}/{{ trafficserver_yum_repo_file_name }}
 
