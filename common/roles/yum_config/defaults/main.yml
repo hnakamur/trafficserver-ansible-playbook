@@ -1,0 +1,2 @@
+---
+yum_config_installonly_limit: 3

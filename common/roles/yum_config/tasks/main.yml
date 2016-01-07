@@ -1,0 +1,4 @@
+---
+- name: Update yum.conf
+  template: src=yum.conf.j2 dest=/etc/yum.conf
+  tags: ["yum_config"]
