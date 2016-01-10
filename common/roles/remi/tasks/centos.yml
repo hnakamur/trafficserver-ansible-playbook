@@ -1,0 +1,4 @@
+---
+- name: Install remi yum repository
+  yum: name=http://rpms.famillecollet.com/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm state=installed
+  tags: ["remi"]
