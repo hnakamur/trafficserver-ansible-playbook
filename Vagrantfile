@@ -7,7 +7,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
   end
-  config.cache.scope = :box if Vagrant.has_plugin? 'vagrant-cachier'
+  config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.provision "shell", inline: <<-EOS
     sudo mkdir -p -m 700 /root/.ssh
     sudo cp /home/vagrant/.ssh/authorized_keys /root/.ssh/authorized_keys
