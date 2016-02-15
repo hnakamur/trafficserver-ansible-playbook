@@ -1,7 +1,7 @@
 trafficserver-ansible-playbook
 ==============================
 
-My ansible playbook for testing [Apache Traffic Server](https://trafficserver.apache.org/) on a CentOS 6 Vagrant box.
+My ansible playbook for testing [Apache Traffic Server](https://trafficserver.apache.org/) on a CentOS 7 Vagrant box.
 
 ## How to run
 
